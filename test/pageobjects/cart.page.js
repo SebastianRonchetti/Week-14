@@ -32,7 +32,7 @@ class cartPage {
         };
     };
 
-    async clickOnChecout() {
+    async clickOnCheckout() {
         this.checkoutBtn.click();
     };
 }

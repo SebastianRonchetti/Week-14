@@ -1,5 +1,8 @@
 class checkoutInfo {
     //getters
+    
+    get hamburguerBtn() {return $('#react-burger-menu-btn')};
+    get logoutBtn() {return $('#react-burger-menu-btn')};
     get nameInput() {return $('#first-name')};
     get lastNameInput() {return $('#last-name')};
     get zipInput() {return $('#postal-code')};
@@ -39,5 +42,11 @@ class checkoutInfo {
 
     async cancelTransaction() {
         this.clickCancel();
-    }
+    };
+
+    async accountLogout(){
+        this.hamburguerBtn.click();
+        browser.pause(3000);
+        this.logoutBtn.click()
+    };
 }

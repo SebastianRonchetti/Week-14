@@ -3,6 +3,13 @@ class storePage {
     get logoutBtn() {return $('#react-burger-menu-btn')};
     get toCartBtn() {return $('#shopping_cart_container > a')};
 
+    get goToItemDetails1() {return $('#item_4_title_link > div')};
+    get goToItemDetails2() {return $('#item_0_title_link > div')};
+    get goToItemDetails3() {return $('#item_1_title_link > div')};
+    get goToItemDetails4() {return $('#item_5_title_link > div')};
+    get goToItemDetails5() {return $('#item_2_title_link > div')};
+    get goToItemDetails6() {return $('#item_3_title_link > div')};
+
     get addToCartBtn1() {return $('#add-to-cart-sauce-labs-backpack')};
     get addToCartBtn2() {return $('#add-to-cart-sauce-labs-bike-light')};
     get addToCartBtn3() {return $('#add-to-cart-sauce-labs-bolt-t-shirt')};
@@ -62,6 +69,29 @@ class storePage {
                 break;
         };
     };
+
+    async clickOnOpenDetails (item){
+        switch (item){
+            case 1:
+                this.goToItemDetails1.click();
+                break;
+            case 2:
+                this.goToItemDetails2.click();
+                break;
+            case 3:
+                this.goToItemDetails3.click();
+                break;
+            case 4:
+                this.goToItemDetails4.click();
+                break;
+            case 5:
+                this.goToItemDetails5.click();
+                break;
+            case 6:
+                this.goToItemDetails6.click();
+                break;
+        }
+    }
 
     async accountLogout(){
         this.hamburguerBtn.click();

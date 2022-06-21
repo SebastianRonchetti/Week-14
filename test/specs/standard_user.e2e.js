@@ -2,14 +2,20 @@ const { login } = require('../pageobjects/loginPage.page');
 const loginPage = require('../pageobjects/loginPage.page');
 const storePage = require ('../pageobjects/store.page');
 const cartPage = require('../pageobjects/cart.page');
+const itemDetailsPage = require('../pageobjects/itemDetails.page');
 const checkoutInfoPage = require('../pageobjects/checkoutInfo.page');
 const checkoutResPage = require('../pageobjects/checkoutRes.page');
 const thankOPage = require('../pageobjects/thankOrder.page');
 
-describe ('Standard-user flow', ()=> {
+describe ('Standard-user flow', () => {
 
     beforeAll(()=> {
         browser.url('https://www.saucedemo.com/')
+    });
+
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
     });
 
     it('Successful login', async ()=> {
@@ -71,7 +77,7 @@ describe ('Standard-user flow', ()=> {
     });
 
     it('Click on checkout button', async () => {
-        cartPage.clickOnChecout();
+        cartPage.clickOnCheckout();
         const bottomRobot = await $('footer > img').getAttribute('src');
         await expect(bottomRobot).toBe('/static/media/SwagBot_Footer_graphic.2e87acec.png');
     });
@@ -102,6 +108,45 @@ describe ('Standard-user flow', ()=> {
     it('Click on finish', async () => {
         checkoutResPage.clickOnFinish();
         await expect(thankOPage.cowbotImg).toBeDisplayed();
+    });
+
+    it('Return to store', async () => {
+        thankOPage.clickOnBack();
+        const cartItems = await $('#shopping_cart_container > a > span').getText();
+        await expect(cartItems).toBe('');
+    });
+
+    it('Open details for sixth element', async () => {
+        storePage.clickOnOpenDetails(6);
+        await expect(itemDetailsPage.itemName).toHaveText('Test.allTheThings() T-Shirt (Red)');
+    });
+
+    it('Add item to cart', async () => {
+        const addBtn = await $('#add-to-cart-test\.allthethings\(\)-t-shirt-\(red\)');
+        await addBtn.click();
+        const cartItems = await $('#shopping_cart_container > a > span').getText();
+        await expect(cartItems).toBe('1');
+    });
+
+    it('Click on cart', async () => {
+        await itemDetailsPage.toCart();
+    });
+
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
+    });
+
+    it('Go to checkout and fill info', async () => {
+        await cartPage.clickOnCheckout();
+        await checkoutInfoPage.fillInfo('Asterix', 'Obelisk', '1234');
+        await expect(checkoutResPage.deliveryService).toHaveText('FREE PONY EXPRESS DELIVERY!');
+    });
+
+    it('Return to store', async () => {
+        thankOPage.clickOnBack();
+        const cartItems = await $('#shopping_cart_container > a > span').getText();
+        await expect(cartItems).toBe('');
     });
 
     it('Logout', async () => {
