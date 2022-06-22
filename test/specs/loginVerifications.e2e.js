@@ -5,17 +5,32 @@ describe('Series of invalid inputs for login and correct display of elements', (
     beforeAll(()=> {
         browser.url('https://www.saucedemo.com/')
     });
+    
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
+    });
 
     it('Failed Login, bad credentials', async () => {
         await loginPage.login('uasuduad', 'dasdad');
         await expect(loginPage.errorDisplay).toHaveText('Epic sadface: Username and password do not match any user in this service');
         await loginPage.cleanInputs();
     });
+    
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
+    });
 
     it('Failed login, wrong password', async () => {
         await loginPage.login('standard_user', 'dasdasd');
         await expect(loginPage.errorDisplay).toHaveText('Epic sadface: Username and password do not match any user in this service')
         await loginPage.cleanInputs();
+    });
+    
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
     });
 
     it('Failed login, empty username', async () => {
@@ -24,17 +39,27 @@ describe('Series of invalid inputs for login and correct display of elements', (
         await loginPage.cleanInputs();
     });
 
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
+    });
+
     it('Failed login, empty password', async () => {
         await loginPage.login('standard_user', null);
         await expect(loginPage.errorDisplay).toHaveText('Epic sadface: Password is required');
         await loginPage.cleanInputs();
+    });
+    
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
     });
 
     it('Failed login, both fields empty', async () => {
         await loginPage.login(null, null);
         await expect(loginPage.errorDisplay).toHaveText('Epic sadface: Username is required');
         await loginPage.cleanInputs();
-    })
+    });
 
     it('Correct display of login logo', async () => {
         await expect(loginPage.loginLogo).toBeDisplayed();

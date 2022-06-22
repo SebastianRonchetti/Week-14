@@ -46,6 +46,11 @@ class checkoutInfo {
         await this.clickContinue();
     };
 
+    async fillInfoProblem(name, postal) {
+        await this.inputName(name);
+        await this.inputPostal(postal);
+    }
+
     async cancelTransaction() {
         await this.clickCancel();
     };

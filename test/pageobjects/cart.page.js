@@ -1,6 +1,6 @@
 class cartPage {
     get returnToShopBtn() {return $('#continue-shopping')};
-    get checkoutBtn() {return $('#checkout')}
+    get checkoutBtn() {return $('#checkout')};
 
     get removeFromCartBtn1() {return $('#remove-sauce-labs-backpack')};
     get removeFromCartBtn2() {return $('#remove-sauce-labs-bike-light')};
@@ -31,6 +31,10 @@ class cartPage {
                 break;
         };
     };
+
+    async clickOnReturnToShopBtn () {
+        await this.returnToShopBtn.click();
+    }
 
     async clickOnCheckout() {
         await this.checkoutBtn.click();

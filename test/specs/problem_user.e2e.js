@@ -83,25 +83,42 @@ describe('Problem user flow', () => {
     });
 
     it('Return to store', async () => {
-        await cartPage.clickOnReturnToStore();
+        await cartPage.clickOnReturnToShopBtn();
+    });
+    
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
     });
 
-    it('Open details for fifth item', async () => {
-        await storePage.clickOnOpenDetails(5);
-        await expect(itemDetailsPage.itemName).toBe('Test.allTheThings() T-Shirt (Red)');
+    it('Open details for sixth item', async () => {
+        await storePage.clickOnOpenDetails(3);
+        await expect(itemDetailsPage.itemName).toHaveText('Sauce Labs Onesie');
+    });
+    
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
     });
 
     it('Add item to cart', async () => {
-        const addBtn = await $('#add-to-cart-test\.allthethings\(\)-t-shirt-\(red\)');
-        await addBtn.click();
+        await $('#add-to-cart-sauce-labs-onesie').click();
     });
 
     it('Go to cart', async () => {
         await itemDetailsPage.toCart();
+        const title = await $('#header_container > div.header_secondary_container > span').getText();
+        await expect(title).toBe('YOUR CART');
+    });
+    
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
     });
 
     it('Fill first step for purchase', async () => {
-        await checkoutInfoPage.fillInfo('Asterisk', 'Obelisk', '12312');
+        browser.pause(3000);
+        await checkoutInfoPage.fillInfo('Obelisk', 'A', '12312');
         await expect(checkoutInfoPage.errorDisplay).toHaveText('Error: Last Name is required');
     });
 

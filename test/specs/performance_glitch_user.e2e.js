@@ -1,4 +1,3 @@
-const { login } = require('../pageobjects/loginPage.page');
 const loginPage = require('../pageobjects/loginPage.page');
 const storePage = require ('../pageobjects/store.page');
 const cartPage = require('../pageobjects/cart.page');
@@ -7,8 +6,7 @@ const checkoutInfoPage = require('../pageobjects/checkoutInfo.page');
 const checkoutResPage = require('../pageobjects/checkoutRes.page');
 const thankOPage = require('../pageobjects/thankOrder.page');
 
-describe ('Standard-user flow', () => {
-
+describe('Flow for user with glitch performance', () => {
     beforeAll(()=> {
         browser.url('https://www.saucedemo.com/')
     });
@@ -24,6 +22,7 @@ describe ('Standard-user flow', () => {
 
     it('Check for correct image display on login', async () => {
         await browser.pause(3000);
+        await $('#item_4_img_link > img').waitForExist({timeout: 6000});
         const imgSource = await $('#item_4_img_link > img').getAttribute('src');
         await expect(imgSource).toBe('/static/media/sauce-backpack-1200x1500.34e7aa42.jpg');
     });
@@ -58,11 +57,10 @@ describe ('Standard-user flow', () => {
 
     it('Alter order of displayed items to Z to A', async () => {
         $("span > select").selectByIndex(1);
-        await browser.pause(3000);
     });
 
     it('Add fifth element to cart', async () => {
-        storePage.clickOnAddToCartBtnN(5);
+        await storePage.clickOnAddToCartBtnN(5);
         await browser.pause(3000);
         const cartItems = await $('#shopping_cart_container > a > span').getText();
         await expect(cartItems).toBe('3');
@@ -133,6 +131,7 @@ describe ('Standard-user flow', () => {
     it('Return to store', async () => {
         thankOPage.clickOnBack();
         await browser.pause(3000);
+        await $('#shopping_cart_container > a > span').waitForExist({timeout : 10000});
         const cartItems = await $('#shopping_cart_container > a > span').isDisplayed();
         await expect(cartItems).toBeFalsy();
     });
@@ -176,6 +175,7 @@ describe ('Standard-user flow', () => {
     it('Return to store', async () => {
         thankOPage.clickOnBack();
         await browser.pause(3000);
+        await $('#shopping_cart_container > a > span').waitForExist({timeout : 8000});
         await $('#shopping_cart_container > a > span').toHaveTextContaining('');
         //const cartItems =
         //await expect(cartItems).toBeFalsy();
