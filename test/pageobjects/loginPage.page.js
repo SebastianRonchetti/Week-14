@@ -19,17 +19,14 @@ class loginPage {
     //methods
     async login (userName, Password)
     {
-        this.setUserName(userName);
-        browser.pause(6000);
-        this.setPassword(Password);
-        browser.pause(6000);
-        this.loginButton.click();
-        browser.pause(6000);
+        await this.setUserName(userName);
+        await this.setPassword(Password);
+        await this.loginButton.doubleClick();
     }
 
     async cleanInputs(){
-        this.setUserName('');
-        this.setPassword('');
+        await this.userNameInput.clearValue();
+        await this.passwordInput.clearValue();
     }
 }
 

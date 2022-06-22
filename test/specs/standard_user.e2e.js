@@ -19,44 +19,51 @@ describe ('Standard-user flow', () => {
     });
 
     it('Successful login', async ()=> {
-        await loginPage.login('standard_user', 'secret_sauce');
+        await loginPage.login('standard_user', 'secret_sauce');        
     });
 
     it('Check for correct image display on login', async () => {
+        await browser.pause(3000);
         const imgSource = await $('#item_4_img_link > img').getAttribute('src');
         await expect(imgSource).toBe('/static/media/sauce-backpack-1200x1500.34e7aa42.jpg');
     });
 
     it('Add first element to cart', async () => {
-        storePage.clickOnAddToCartBtnN(1)
+        storePage.clickOnAddToCartBtnN(1);
+        await browser.pause(3000);
         const cartItems = await $('#shopping_cart_container > a > span').getText();
         await expect(cartItems).toBe('1');
     });
 
     it('Add fourth element to cart', async () => {
-        storePage.clickOnAddToCartBtnN(4)
+        storePage.clickOnAddToCartBtnN(4);
+        await browser.pause(3000);
         const cartItems = await $('#shopping_cart_container > a > span').getText();
         await expect(cartItems).toBe('2');
     });
 
     it('Add third element to cart', async () => {
-        storePage.clickOnAddToCartBtnN(3)
+        storePage.clickOnAddToCartBtnN(3);
+        await browser.pause(3000);
         const cartItems = await $('#shopping_cart_container > a > span').getText();
         await expect(cartItems).toBe('3');
     });
 
     it('Remove first element from cart', async () => {
-        storePage.clickOnRemoveFromCartBtnN(1)
+        storePage.clickOnRemoveFromCartBtnN(1);
+        await browser.pause(3000)
         const cartItems = await $('#shopping_cart_container > a > span').getText();
         await expect(cartItems).toBe('2');
     });
 
     it('Alter order of displayed items to Z to A', async () => {
         $("span > select").selectByIndex(1);
+        await browser.pause(3000);
     });
 
     it('Add fifth element to cart', async () => {
-        storePage.clickOnAddToCartBtnN(5)
+        storePage.clickOnAddToCartBtnN(5);
+        await browser.pause(3000);
         const cartItems = await $('#shopping_cart_container > a > span').getText();
         await expect(cartItems).toBe('3');
     });
@@ -66,35 +73,51 @@ describe ('Standard-user flow', () => {
     });
 
     it('Check display of logo', async () => {
-        const logoSource = await $('#app_logo').getAttribute('src');
-        await expect(logoSource).toBe('/static/media/logo3x.096bf4a7.svg')
+        await browser.pause(3000);
+        const logoSource = await $('#header_container > div.primary_header > div.header_label > div').getAttribute('url');
+        await expect(logoSource).toBe('/static/media/logo3x.096bf4a7.svg');
     });
 
     it('Remove element from cart', async () => {
         cartPage.clickOnRemoveFromCartBtnN(3);
+        await browser.pause(3000);
         const cartItems = await $('#shopping_cart_container > a > span').getText();
         await expect(cartItems).toBe('2');
     });
 
     it('Click on checkout button', async () => {
-        cartPage.clickOnCheckout();
+        await cartPage.clickOnCheckout();
+        await browser.pause(3000);
         const bottomRobot = await $('footer > img').getAttribute('src');
         await expect(bottomRobot).toBe('/static/media/SwagBot_Footer_graphic.2e87acec.png');
     });
 
     it('Fill checkout info, skip name', async () => {
-        checkoutInfoPage.fillInfo('', 'Ascencia', '6666');
-        await expect(checkoutInfoPage.errorAlert).toHaveText('Error: First Name is required')
+        await checkoutInfoPage.fillInfo('', 'Ascencia', '6666');
+        await browser.pause(3000);
+        await expect(checkoutInfoPage.errorDisplay).toHaveText('Error: First Name is required')
+    });
+
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
     });
 
     it('Fill checkout info, skip surname', async () => {
-        checkoutInfoPage.fillInfo('Ascencia', '', '6666');
-        await expect(checkoutInfoPage.errorAlert).toHaveText('Error: Last Name is required');
+        await checkoutInfoPage.fillInfo('Ascencia', '', '6666');
+        await browser.pause(3000);
+        await expect(checkoutInfoPage.errorDisplay).toHaveText('Error: Last Name is required');
+    });
+
+    it('Page should be refreshed', async () =>{
+        await browser.refresh();
+        browser.pause(800);
     });
 
     it('Fill checkout info, skip postal', async () => {
-        checkoutInfoPage.fillInfo('Ascencia', 'Immortalia', '');
-        await expect(checkoutInfoPage.errorAlert).toHaveText('Error: Postal Code is required');
+        await checkoutInfoPage.fillInfo('Ascencia', 'Immortalia', '');
+        await browser.pause(3000);
+        await expect(checkoutInfoPage.errorDisplay).toHaveText('Error: Postal Code is required');
     });
 
     it('Fill checkout info', async () => {
@@ -102,34 +125,42 @@ describe ('Standard-user flow', () => {
     });
 
     it('Check for correct delivery service', async () => {
+        await browser.pause(3000);
         await expect(checkoutResPage.deliveryService).toHaveText('FREE PONY EXPRESS DELIVERY!');
     });
 
     it('Click on finish', async () => {
+        await browser.pause(3000);
         checkoutResPage.clickOnFinish();
+        await browser.pause(3000);
         await expect(thankOPage.cowbotImg).toBeDisplayed();
     });
 
     it('Return to store', async () => {
         thankOPage.clickOnBack();
+        await browser.pause(3000);
         const cartItems = await $('#shopping_cart_container > a > span').getText();
         await expect(cartItems).toBe('');
     });
 
-    it('Open details for sixth element', async () => {
-        storePage.clickOnOpenDetails(6);
-        await expect(itemDetailsPage.itemName).toHaveText('Test.allTheThings() T-Shirt (Red)');
+    it('Open details for second element', async () => {
+        storePage.clickOnOpenDetails(2);
+        await browser.pause(3000);
+        await expect(itemDetailsPage.itemName).toHaveText('Sauce Labs Bike Light');
+        await browser.pause(3000);
     });
 
     it('Add item to cart', async () => {
-        const addBtn = await $('#add-to-cart-test\.allthethings\(\)-t-shirt-\(red\)');
+        const addBtn = await $('#add-to-cart-sauce-labs-bike-light');
         await addBtn.click();
+        await browser.pause(10000);
         const cartItems = await $('#shopping_cart_container > a > span').getText();
         await expect(cartItems).toBe('1');
     });
 
     it('Click on cart', async () => {
         await itemDetailsPage.toCart();
+        await browser.pause(3000);
     });
 
     it('Page should be refreshed', async () =>{
@@ -139,17 +170,24 @@ describe ('Standard-user flow', () => {
 
     it('Go to checkout and fill info', async () => {
         await cartPage.clickOnCheckout();
+        await browser.pause(3000);
+    });
+
+    it('fill info', async () => {
         await checkoutInfoPage.fillInfo('Asterix', 'Obelisk', '1234');
         await expect(checkoutResPage.deliveryService).toHaveText('FREE PONY EXPRESS DELIVERY!');
+        await browser.pause(3000);
     });
 
     it('Return to store', async () => {
         thankOPage.clickOnBack();
-        const cartItems = await $('#shopping_cart_container > a > span').getText();
+        await browser.pause(3000);
+        const cartItems = await $('#shopping_cart_container > a > span');
         await expect(cartItems).toBe('');
     });
 
     it('Logout', async () => {
+        await browser.pause(3000);
         storePage.accountLogout();
     });
 })

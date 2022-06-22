@@ -6,3 +6,5 @@ class thankOrderPage {
         await this.toStoreBtn.click();
     };
 };
+
+module.exports = new thankOrderPage();

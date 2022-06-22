@@ -4,10 +4,12 @@ class itemDetails {
     get toCartBtn() {return $('#shopping_cart_container > a')};
 
     async clickOnReturnToStore() {
-        this.returnToStore.click();
+        await this.returnToStore.click();
     };
 
     async toCart(){
-        this.toCartBtn.click();
+        await this.toCartBtn.click();
     };
-}
+};
+
+module.exports = new itemDetails()

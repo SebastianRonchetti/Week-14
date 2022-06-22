@@ -12,41 +12,48 @@ class checkoutInfo {
 
     //setters
     async inputName(name) {
-        this.nameInput.setValue(name);
+        await this.nameInput.setValue(name);
     };
 
     async inputSurname(surname) {
-        this.lastNameInput.setValue(surname);
+        await this.lastNameInput.setValue(surname);
     };
 
     async inputPostal(postal) {
-        this.zipInput.setValue(postal);
+        await this.zipInput.setValue(postal);
     }
 
     async clickContinue() {
-        this.contButton.click();
+        await this.contButton.click();
     }
     
     async clickCancel() {
-        this.cancelButton.click();
+        await this.cancelButton.click();
+    }
+
+    async cleanFields() {
+        await this.nameInput.clearValue();
+        await this.lastNameInput.clearValue();
+        await this.zipInput.clearValue();
     }
 
     //Methods
 
     async fillInfo(name, surname, postal) {
-        this.inputName(name);
-        this.inputSurname(surname);
-        this.inputPostal(postal);
-        this.clickContinue();
+        await this.inputName(name);
+        await this.inputSurname(surname);
+        await this.inputPostal(postal);
+        await this.clickContinue();
     };
 
     async cancelTransaction() {
-        this.clickCancel();
+        await this.clickCancel();
     };
 
     async accountLogout(){
-        this.hamburguerBtn.click();
-        browser.pause(3000);
-        this.logoutBtn.click()
+        await this.hamburguerBtn.click();
+        await this.logoutBtn.click()
     };
-}
+};
+
+module.exports = new checkoutInfo();

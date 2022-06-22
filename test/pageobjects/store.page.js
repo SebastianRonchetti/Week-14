@@ -27,22 +27,22 @@ class storePage {
     async clickOnAddToCartBtnN (number) {
         switch(number){
             case 1:
-                this.addToCartBtn1.click();
+                await this.addToCartBtn1.click();
                 break;
             case 2:
-                this.addToCartBtn2.click();
+                await this.addToCartBtn2.click();
                 break;
             case 3:
-                this.addToCartBtn3.click();
+                await this.addToCartBtn3.click();
                 break;
             case 4:
-                this.addToCartBtn4.click();
+                await this.addToCartBtn4.click();
                 break;
             case 5:
-                this.addToCartBtn5.click();
+                await this.addToCartBtn5.click();
                 break;
             case 6:
-                this.addToCartBtn6.click();
+                await this.addToCartBtn6.click();
                 break;
         };
     };
@@ -50,22 +50,22 @@ class storePage {
     async clickOnRemoveFromCartBtnN (number) {
         switch(number){
             case 1:
-                this.removeFromCartBtn1.click();
+                await this.removeFromCartBtn1.click();
                 break;
             case 2:
-                this.removeFromCartBtn2.click();
+                await this.removeFromCartBtn2.click();
                 break;
             case 3:
-                this.removeFromCartBtn3.click();
+                await this.removeFromCartBtn3.click();
                 break;
             case 4:
-                this.removeFromCartBtn4.click();
+                await this.removeFromCartBtn4.click();
                 break;
             case 5:
-                this.removeFromCartBtn5.click();
+                await this.removeFromCartBtn5.click();
                 break;
             case 6:
-                this.removeFromCartBtn6.click();
+                await this.removeFromCartBtn6.click();
                 break;
         };
     };
@@ -73,33 +73,35 @@ class storePage {
     async clickOnOpenDetails (item){
         switch (item){
             case 1:
-                this.goToItemDetails1.click();
+                await this.goToItemDetails1.click();
                 break;
             case 2:
-                this.goToItemDetails2.click();
+                await this.goToItemDetails2.click();
                 break;
             case 3:
-                this.goToItemDetails3.click();
+                await this.goToItemDetails3.click();
                 break;
             case 4:
-                this.goToItemDetails4.click();
+                await this.goToItemDetails4.click();
                 break;
             case 5:
-                this.goToItemDetails5.click();
+                await this.goToItemDetails5.click();
                 break;
             case 6:
-                this.goToItemDetails6.click();
+                await this.goToItemDetails6.click();
                 break;
         }
     }
 
     async accountLogout(){
-        this.hamburguerBtn.click();
+        await this.hamburguerBtn.click();
         browser.pause(3000);
-        this.logoutBtn.click()
+        await this.logoutBtn.click()
     };
 
     async toCart(){
-        this.toCartBtn.click();
+        await this.toCartBtn.click();
     };
 };
+
+module.exports = new storePage();

@@ -12,27 +12,29 @@ class cartPage {
     async clickOnRemoveFromCartBtnN (number) {
         switch(number){
             case 1:
-                this.removeFromCartBtn1.click();
+                await this.removeFromCartBtn1.click();
                 break;
             case 2:
-                this.removeFromCartBtn2.click();
+                await this.removeFromCartBtn2.click();
                 break;
             case 3:
-                this.removeFromCartBtn3.click();
+                await this.removeFromCartBtn3.click();
                 break;
             case 4:
-                this.removeFromCartBtn4.click();
+                await this.removeFromCartBtn4.click();
                 break;
             case 5:
-                this.removeFromCartBtn5.click();
+                await this.removeFromCartBtn5.click();
                 break;
             case 6:
-                this.removeFromCartBtn6.click();
+                await this.removeFromCartBtn6.click();
                 break;
         };
     };
 
     async clickOnCheckout() {
-        this.checkoutBtn.click();
+        await this.checkoutBtn.click();
     };
-}
+};
+
+module.exports = new cartPage();

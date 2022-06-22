@@ -4,10 +4,12 @@ class checkoutResPage {
     get deliveryService() {return $('#checkout_summary_container > div > div.summary_info > div:nth-child(4)')};
 
     async clickOnFinish() {
-        this.finishBtn.click();
+        await this.finishBtn.click();
     };
 
     async clickOnCancel() {
-        this.cancelBtn.click();
+        await this.cancelBtn.click();
     };
-}
+};
+
+module.exports = new checkoutResPage();
